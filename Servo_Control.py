@@ -10,10 +10,10 @@ is_open = False
 #the duty cycle to open the servo given by formula: Duty = ((0.5 + (Angle / 90)) /20 )*100
 def convert_angle(angle):
     percentage = ((0.5 + (angle / 90)) /20 )*100
-    return percentage * (2^16 - 1)
+    return int(percentage * (2**16 - 1))
 
-servo_closed_val =  convert_angle(s_closed_angle)
-servo_open_val = convert_angle(s_open_angle)
+servo_closed_val = int(convert_angle(s_closed_angle))
+servo_open_val = int(convert_angle(s_open_angle))
 
 
 
