@@ -14,8 +14,8 @@ while button.value() != 0:
     continue
 #print("button")
 #loop for test
-Servo_Control.open_servo()
-Servo_Control.close_servo()
+#Servo_Control.open_servo()
+#Servo_Control.close_servo()
 
 while True:
     if button.value() == 0:  # pressed
