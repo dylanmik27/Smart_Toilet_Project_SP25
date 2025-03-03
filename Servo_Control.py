@@ -1,7 +1,7 @@
 from machine import Pin, PWM
 from time import sleep
 
-servo = PWM(Pin(29))     # the Pico PWM pin
+servo = PWM(Pin(19))     # the Pico PWM pin
 servo.freq(50) #per the mg995 datasheet 50hz
 s_closed_angle = 30
 s_open_angle = 130
