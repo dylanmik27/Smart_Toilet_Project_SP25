@@ -4,7 +4,7 @@ from time import sleep
 servo = PWM(Pin(0))     # the Pico PWM pin
 servo.freq(50) #per the mg995 datasheet 50hz
 s_closed_angle = 30
-s_open_angle = 130
+s_open_angle = 120
 is_open = False
 
 #the duty cycle to open the servo given by formula: Duty = ((0.5 + (Angle / 90)) /20 )*100
