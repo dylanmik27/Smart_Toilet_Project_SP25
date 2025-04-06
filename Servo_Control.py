@@ -2,6 +2,7 @@ from machine import Pin, PWM
 from time import sleep
 
 servo = PWM(Pin(0))     # the Pico PWM pin
+servo_switch = Pin(1, Pin.OUT)
 servo.freq(50) #per the mg995 datasheet 50hz
 s_closed_angle = 30
 s_open_angle = 120
@@ -18,20 +19,25 @@ print(servo_closed_val)
 print(servo_open_val)
 
 
+
 def close_servo():
     global is_open
+    servo_switch.value(1)
     servo.duty_u16(servo_closed_val)
     sleep(2) #wait for servo to move
     is_open = False
     servo.deinit
+    servo_switch.value(0)
     return
 
 def open_servo():
     global is_open
+    servo_switch.value(1)
     servo.duty_u16(servo_open_val)
     sleep(2) #wait for servo to move
     is_open = True
     servo.deinit
+    servo_switch.value(0)
     return
 
 def get_open():
