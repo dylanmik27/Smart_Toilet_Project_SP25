@@ -2,40 +2,26 @@ print("import")
 from machine import Pin
 import time
 import Servo_Control
+import Motion
 import Speaker
 
-
-
-# Define the PIR sensor input pin
-motion = Pin(22, Pin.IN)
-
-# Flags to indicate motion detection state
-motion_detected = False
-
-# Callback function to handle motion detection
-def detect_motion():
-    global motion_detected
-    if motion.value() == 1:  # Rising edge (motion detected)
-        motion_detected = True
-    else:  # Falling edge (motion stopped)
-        motion_detected = False
-
 seat_switch = Pin(15, Pin.IN, Pin.PULL_UP)
-
+Speaker.play_tone(660, 0.15)
+Speaker.play_tone(880, 0.3)
 print("loaded")
 Servo_Control.open_servo()
 Servo_Control.close_servo()
 while True:
-    detect_motion()
-    if motion_detected:
-        print("hey")
+    Motion.detect_motion()
+    if Motion.motion_detected:
         Servo_Control.open_servo()
         while seat_switch.value() != 0:
             time.sleep(0.1)
         while seat_switch.value() == 0:
             time.sleep(0.1)
-        time.sleep(60)
+        Speaker.play_tone(440,.15)
+        time.sleep(30)
         Servo_Control.close_servo()
-        time.sleep(60)
+        time.sleep(30)
     else:
         time.sleep(1)
