@@ -1,5 +1,6 @@
 from machine import Pin, PWM
 from time import sleep
+import Speaker
 
 servo = PWM(Pin(0))     # the Pico PWM pin
 servo_switch = Pin(1, Pin.OUT)
@@ -24,6 +25,7 @@ def close_servo():
     global is_open
     servo_switch.value(1)
     servo.duty_u16(servo_closed_val)
+    Speaker.jingle()
     sleep(2) #wait for servo to move
     is_open = False
     servo.deinit
@@ -34,6 +36,7 @@ def open_servo():
     global is_open
     servo_switch.value(1)
     servo.duty_u16(servo_open_val)
+    Speaker.jingle()
     sleep(2) #wait for servo to move
     is_open = True
     servo.deinit
