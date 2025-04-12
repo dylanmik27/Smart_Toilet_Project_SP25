@@ -1,11 +1,12 @@
 from machine import Pin, PWM
 from time import sleep
+import Speaker
 
 servo = PWM(Pin(0))     # the Pico PWM pin
 servo_switch = Pin(1, Pin.OUT)
 servo.freq(50) #per the mg995 datasheet 50hz
-s_closed_angle = 30
-s_open_angle = 120
+s_closed_angle = 120
+s_open_angle = 30
 is_open = False
 
 #the duty cycle to open the servo given by formula: Duty = ((0.5 + (Angle / 90)) /20 )*100
@@ -24,6 +25,7 @@ def close_servo():
     global is_open
     servo_switch.value(1)
     servo.duty_u16(servo_closed_val)
+    Speaker.jingle()
     sleep(2) #wait for servo to move
     is_open = False
     servo.deinit
@@ -34,6 +36,7 @@ def open_servo():
     global is_open
     servo_switch.value(1)
     servo.duty_u16(servo_open_val)
+    Speaker.jingle()
     sleep(2) #wait for servo to move
     is_open = True
     servo.deinit
