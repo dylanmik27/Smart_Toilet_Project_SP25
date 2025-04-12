@@ -12,6 +12,7 @@ print("loaded")
 Servo_Control.open_servo()
 Servo_Control.close_servo()
 while True:
+    time.sleep(1)
     Motion.detect_motion()
     if Motion.motion_detected:
         Servo_Control.open_servo()
