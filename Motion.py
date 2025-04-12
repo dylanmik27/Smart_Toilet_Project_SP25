@@ -15,11 +15,11 @@ def detect_motion():
     else:  # Falling edge (motion stopped)
         motion_detected = False
 
-while True:
-    detect_motion()
-    if motion_detected:
-        print("Motion detected!")
-    else: 
-        print("oh no")
-    sleep(1)  # Main loop delay
+# while True:
+#     detect_motion()
+#     if motion_detected:
+#         print("Motion detected!")
+#     else: 
+#         print("oh no")
+#     sleep(1)  # Main loop delay
 
