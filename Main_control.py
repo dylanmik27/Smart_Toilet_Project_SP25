@@ -1,3 +1,6 @@
+#Legacy code that remnains from the servo development, utilized to implement main.py
+#Code is not ran when device is operated, and only remains for documentation
+
 from machine import Pin
 from utime import sleep
 import Servo_Control
