@@ -9,7 +9,11 @@ An automated toilet seat system designed to enhance hygiene and convenience in b
 - [Software Structure](#software-structure)
 - [Setup & Installation](#setup--installation)
 - [Usage](#usage)
-- [Versions](#external-specificaitons-on-software-and-firmware-versions)
+- [Versions](#external-specifications-on-software-and-firmware-versions)
+
+
+# The Circuit
+![Circuit Diagram](images/Circuit_Diagram.jpg)
 
 # Overview
 The Automated Toilet Seat Controller automates the operation of a toilet seat based on user presence and interactions. When the PIR sensor detects motion near the toilet, the system opens the seat by actuating a servo. It then waits for the user to sit down (detected via a pressure switch connected between ground and gp15) and later to stand up. Once the user leaves, the system delays for a predetermined period before closing the seat. Audio tones are played during both the opening and closing operations to provide audible feedback.
