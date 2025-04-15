@@ -123,7 +123,7 @@ The system then waits for a user to sit on the seat (pressure switch activated) 
 
 Audio feedback is provided during both the opening and closing operations.
 
-# External specificaitons on software and firmware versions
+# External specifications on software and firmware versions
 * MicroPython v1.24.1 
 * Raspberry Pi Pico W with RP2040
 * Python version - 3.13.1
