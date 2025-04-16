@@ -4,6 +4,8 @@ An automated toilet seat system designed to enhance hygiene and convenience in b
 
 # Table of Contents
 - [Overview](#overview)
+- [The Circuit](#the-circuit)
+- [Parts List](#parts-list)
 - [Features](#features)
 - [Hardware Requirements](#hardware-requirements)
 - [Software Structure](#software-structure)
@@ -11,12 +13,22 @@ An automated toilet seat system designed to enhance hygiene and convenience in b
 - [Usage](#usage)
 - [Versions](#external-specifications-on-software-and-firmware-versions)
 
+# Overview
+The Automated Toilet Seat Controller automates the operation of a toilet seat based on user presence and interactions. When the PIR sensor detects motion near the toilet, the system opens the seat by actuating a servo. It then waits for the user to sit down (detected via a pressure switch connected between ground and gp15) and later to stand up. Once the user leaves, the system delays for a predetermined period before closing the seat. Audio tones are played during both the opening and closing operations to provide audible feedback.
 
 # The Circuit
 ![Circuit Diagram](images/Circuit_Diagram.jpg)
 
-# Overview
-The Automated Toilet Seat Controller automates the operation of a toilet seat based on user presence and interactions. When the PIR sensor detects motion near the toilet, the system opens the seat by actuating a servo. It then waits for the user to sit down (detected via a pressure switch connected between ground and gp15) and later to stand up. Once the user leaves, the system delays for a predetermined period before closing the seat. Audio tones are played during both the opening and closing operations to provide audible feedback.
+# Parts List
+| Component         | Part Name/Number                                | Quantity Needed | Amazon Link |
+|-------------------|-------------------------------------------------|-----------------|-------------|
+| Servo Motor       | MG995 servo motor                               | 1               | [link](https://www.amazon.com/Control-Angle180-Digital-Torque-Helicopter/dp/B0D7M4LHBP/ref=asc_df_B07NQJ1VZ2?mcid=2dedb8a3a0973d19a870c56a0b430c95&hvocijid=1454523823739028590-B07NQJ1VZ2-&hvexpln=73&tag=hyprod-20&linkCode=df0&hvadid=721245378154&hvpos=&hvnetw=g&hvrand=1454523823739028590&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9028893&hvtargid=pla-2281435178858&th=1) |
+| Motion Sensor     | Mini Pyroelectric PIR Motion Sensor Module      | 1               | [link](https://www.amazon.com/DIYables-Pyroelectric-Infrared-Detector-Raspberry/dp/B0CSD2K25B/ref=sr_1_1?crid=D3LFSI8CAS53&dib=eyJ2IjoiMSJ9.tlWUOi6-tZJf7KLplr3NlA.5Ky74crpt80yqrC5ARZsf2Mcwth1u3EUSlYAhnLuiHE&dib_tag=se&keywords=DIYables+mini+pyroelectric&qid=1744763806&s=hi&sprefix=diyables+mini+pyroelectric%2Ctools%2C91&sr=1-1) |
+| Limit Switch      | HiLetgo 10pcs Micro Limit Switch KW12-3         | 1               | [link](https://www.amazon.com/HiLetgo-KW12-3-Roller-Switch-Normally/dp/B07X142VGC/ref=asc_df_B07X142VGC?mcid=4a4e088664e83f418ac7b98a6b585fff&hvocijid=8089192941682463272-B07X142VGC-&hvexpln=73&tag=hyprod-20&linkCode=df0&hvadid=721245378154&hvpos=&hvnetw=g&hvrand=8089192941682463272&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9028893&hvtargid=pla-2281435177818&psc=1) |
+| Speaker           | SFM-27 DC 3-24V Electronic Piezo Buzzer         | 1               | [link](https://www.amazon.com/Stemedu-Decibel-Sounder-Electronic-Continuous/dp/B096P5K9W1/ref=sr_1_3?crid=199JEZIMB6Q3D&dib=eyJ2IjoiMSJ9.DJW2EftLw8VHxUTkslkWmgT9VvnLWlOX7qfBJBEkCpHawB1g2liaJZzGNYTvVmBtJUKjQX4HjeXUJgiNSKfc8SQwQspb-RvHwaeOxggFMyXt_GzLiEjPrOwUX_S4eqNC64WKWtzGeAIqk0MvV9Iiz8seB-J4hxYt1j9uJlZsIqTutPeSDj6Im74T6FQmmvBdxlIW5W1gO5GL9d_Y-Esk8WlBCIW39BEEew-hA2WW8Xw.a934F1XWBUmgIFOz5932YGLu469c5K_vl1ycyUWczWc&dib_tag=se&keywords=SMF-27+speaker+STEMDU+piezo+active+buzzer&qid=1744764273&sprefix=smf-27+speaker+stemdu+piezo+active+buzzer%2Caps%2C106&sr=8-3) |
+| MOSFET            | IRLZ44N IRLZ44 MOSFET Transistor                | 1               | [link](https://www.amazon.com/ALLECIN-IRLZ44N-Transistors-IRLZ44NPBF-Mosfets/dp/B0CBKH4XGL/ref=sr_1_1_sspa?crid=1XBRZ3T3FVGCH&dib=eyJ2IjoiMSJ9.JWs5mn6Hgy1aEsOzFISaSw4UPHr4V6ZJEmhvAyCbiBa_ygvxDkkE9v85JW0u1NXB68UDF66-3kXeS2AfSFKkSNrtTUsYiz23lnkStQxQRKqKDwl6M7vmdQ9Ycmo6E7KO2OYoqQo1-F66uey6iewsqS9jHHWm4quKUi1DOWyyFXHFWNavP-1UHU0c3FBrmCWP1A3V3zZJdfOrpEJjAVFE2MPl_G3HmOJgAWt0vgAbCG0.7AyXRh7VwJwjrKelvsWM63ebUwoBX4BOOuTbckKBzek&dib_tag=se&keywords=allecin%2BIRLZ44%2BMOSFET&qid=1744764388&sprefix=allecin%2Birlz44%2Bmosfet%2Caps%2C111&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1) |
+| Micro-Controller  | Raspberry Pi Pico W                             | 1               | [link](https://www.amazon.com/Raspberry-Pi-Pico-Development-Integrated/dp/B0BDLHMQ9C/ref=sr_1_1?crid=P1DA7WO45H5S&dib=eyJ2IjoiMSJ9.he0hzmPd1R2DUnSic2bLdKTN4lmziVRnKyFgihHbmU7dJ88BFkijCRwp2JjgSjvOxI9xluF-wrpT_Wo14bNosGtBRZdQeIVHzazvJcPKOVZpRPWsJhzH-N4yRXb0mBl07oyykCfEXuVc2rnGIE64GkFeni7JYQhNgUyaGJGycRXh2JQ9i9GxUFJyNs09Lw_oSOBJ6D3DOX5KqOLmhqN0VATMZVxobsp0WktLAQO03_E.iYUVHGtKe7jyeJB1T_Tp35mjKSSZRP_VfWNXzHZLgX0&dib_tag=se&keywords=raspberry+pi+pico&qid=1744764517&sprefix=rassberrry+%2Caps%2C124&sr=8-1) |
+
 
 # Features
 Motion Detection: Uses a PIR sensor connected to a designated GPIO pin to monitor activity.
