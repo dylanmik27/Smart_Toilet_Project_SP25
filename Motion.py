@@ -1,3 +1,8 @@
+#This module sets up a PIR sensor on a microcontroller by configuring a specific pin as input. 
+# It maintains a Boolean flag to indicate whether motion is detected and defines a function to update this flag based on the sensor's digital state. 
+# Commented-out test code demonstrates how the function could be used in a loop for continuous monitoring.
+
+#import necessary dependencies
 from machine import Pin
 from time import sleep
 
@@ -15,11 +20,13 @@ def detect_motion():
     else:  # Falling edge (motion stopped)
         motion_detected = False
 
-while True:
-    detect_motion()
-    if motion_detected:
-        print("Motion detected!")
-    else: 
-        print("oh no")
-    sleep(1)  # Main loop delay
+
+#Test code utilized in file to verify function of PIR sensor
+    # while True:
+    #     detect_motion()
+    #     if motion_detected:
+    #         print("Motion detected!")
+    #     else: 
+    #         print("oh no")
+    #     sleep(1)  # Main loop delay
 
