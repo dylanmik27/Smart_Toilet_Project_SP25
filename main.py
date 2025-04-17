@@ -21,17 +21,22 @@ import Motion
 import Speaker
 
 #network connection
-SSID = 'Dylan Phone'
-PASSWORD = 'temp1234'
+SSID = "Dylan Phone"
+PASSWORD = "temp1234"
 
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(SSID, PASSWORD)
-while not wlan.isconnected():
-    time.sleep(0.5)
-ip = wlan.ifconfig()[0]
-print("Wi‑Fi IP:", ip)
-
+# wlan = network.WLAN(network.STA_IF)
+# wlan.active(True)
+# wlan.connect(SSID, PASSWORD)
+# while not wlan.isconnected():
+#     time.sleep(0.5)
+#     print("not detecting network")
+# ip = wlan.ifconfig()[0]
+# print("WiFi IP:", ip)
+ap = network.WLAN(network.AP_IF)
+ap.active(True)
+ap.config(essid='ToiletSeatAP', password='temp1234')
+print('AP SSID:', ap.config('essid'))
+print('AP IP  :', ap.ifconfig()[0])
 #UI
 html = """\
 <!DOCTYPE html>
@@ -53,13 +58,21 @@ html = """\
 </html>
 """
 
-#server
+# #server
+# addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
+# s = socket.socket()
+# s.bind(addr)
+# s.listen(1)
+# s.setblocking(False)
+# print("Listening on", addr)
+
 addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
 s = socket.socket()
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(addr)
 s.listen(1)
 s.setblocking(False)
-print("Listening on", addr)
+print('HTTP server listening on port 80')
 
 #create a input pin for the switch actuated by seat pressure
 seat_switch = Pin(15, Pin.IN, Pin.PULL_UP)
@@ -77,7 +90,9 @@ while True:
     #html control
     try:
         cl, remote = s.accept()
+        print(">>> Incoming connection from", remote)
         req = cl.recv(1024).decode()
+        print(">>> Raw request:", req) 
         path = req.split(" ")[1]
         if path == "/open":
             Servo_Control.open_servo()
