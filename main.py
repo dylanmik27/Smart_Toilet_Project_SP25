@@ -44,9 +44,9 @@ while True:
             time.sleep(0.1)
         #play tone to verify closing timer started
         Speaker.play_tone(440,.15)
-        time.sleep(30)
+        time.sleep(5)
         Servo_Control.close_servo()
         #wait until user has left, so PIR no longer experiences input
-        time.sleep(30)
+        time.sleep(5)
     else:
         time.sleep(1)
